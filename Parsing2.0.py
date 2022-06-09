@@ -23,7 +23,7 @@ def create_folder():
 
 def search():
     
-    DISK = ['D:/', 'E:/', 'C:/']
+    DISK = ['C:/', 'D:/', 'E:/']
     for j in range(len(DISK)):
         for adress, dirs, files in os.walk(DISK[j]):
             if adress == path_to_move:
