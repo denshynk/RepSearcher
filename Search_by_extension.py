@@ -1,43 +1,53 @@
 import os, shutil
 
-PATH_FOR_COPY = input('folder')
-
 def search():
     
-    for adress, dirs, files in os.walk(input('Введите путь старта\n')):
-        if adress == PATH_FOR_COPY:
-            continue
-        for dir in dirs:
-            if len(dir) is not None:
-                yield os.path.join(adress, dir)
-   
-    
-def search2(path):
+    DISK = ['D:/', 'E:/', 'C:/']
+    for j in range(len(DISK)):
+        for adress, dirs, files in os.walk(DISK[j]):
+            if adress == path_to_move:
+                continue
+            for dir in dirs:   
+                result = dir in LIST
+                if result is True:
+                    for i in range(len(LIST)):
+                        if dir == LIST[i]:
+                            yield os.path.join(adress, dir)
+                            break
+        j += 1
+                    
+def search_for_git(path):
     for adress, dirs, files in os.walk(path):
         for dir in dirs:
             if dir.endswith('.git') and '$Recycle.Bin' not in path:
-                move(path)
+                return move(path)
 
+def create_folder():
+    
+    r = requests.get(firsturl)
+    soup = BS(r.content, 'html.parser')
+    new_folder = soup.find('img', class_="avatar float-left")
+    new_folder = new_folder.text
+    new_folder = new_folder.strip()
+    global path_to_move
+    path_random = 'C://Users/densh/Desktop/'
+    path_to_move = ('C://Users/densh/Desktop/' + str(new_folder)) 
+    if os.path.isdir(os.path.join(path_random, new_folder)):
+        path_to_move = os.path.join(path_random, new_folder)
+    else:
+        os.mkdir(os.path.join(path_random, new_folder))
 
 def move(path):
-    print('Перемещение папки')
-    file_name = path.split("\\")[-1]
-    count = 1 
+    print('Перемещение папки', path)
+    file_name = os.path.split(path)[-1]
+    count = 2 
     while True:
-        if os.path.isfile(os.path.join(PATH_FOR_COPY, file_name)):
-                file_name = f'(count).'.join(file_name.split('.'))
-                count += 1
+        if os.path.isdir(os.path.join(path_to_move, file_name)):
+            if f'({count - 1})' in file_name:
+                    file_name = file_name.replace(f'({count - 1})', '')     
+            file_name = file_name + f'({count})'
+            count += 1
         else:
             break
     
-    get_files = os.listdir(path)
-    shutil.move(path, PATH_FOR_COPY)
-    print('Папка перемещена', file_name)
-
-
-for i in search():
-    try:
-        search2(i)
-    except Exception as e:
-        with open(os.path.join(PATH_FOR_COPY, 'errors.txt'), 'a') as r:
-            r.write(str(e) + '\n' + i + '\n')
+    shutil.move(path, os.path.join(path_to_move, file_name))
