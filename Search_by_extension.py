@@ -2,8 +2,8 @@ import os, shutil
 
 def create_folder():
     
-    new_folder = 'Repositories'
-    path_random = 'C://Users/densh/Desktop/'
+    new_folder = 'Search_Repositories'
+    path_random = 'C://Users/densh/Desktop/' #Настроить язык отображения /Users/denshynk/Repositiries/RepSercher
     global path_to_move
     path_to_move = ('C://Users/densh/Desktop/' + str(new_folder)) 
     if os.path.isdir(os.path.join(path_random, new_folder)):
@@ -13,7 +13,7 @@ def create_folder():
 
 def search():
     
-    DISK = ['C:/Users\densh\Desktop'] #, 'E:/', 'D:/'
+    DISK = ['C:/' 'E:/', 'D:/'] 
     for j in range(len(DISK)):
         for adress, dirs, files in os.walk(DISK[j]):
             if adress == path_to_move:
@@ -22,7 +22,7 @@ def search():
                 if '$' not in adress: 
                     if dir.endswith('.git') and '.idx' not in adress:  
                         yield adress
-        #j += 1
+        j += 1
             
                     
 #def search_for_git(path):
