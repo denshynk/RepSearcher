@@ -9,6 +9,7 @@ def create_folder():
     
     r = requests.get(firsturl)
     soup = BS(r.content, 'html.parser')
+    global new_folder
     new_folder = soup.find('img', class_="avatar float-left")
     new_folder = new_folder.text
     new_folder = new_folder.strip()
@@ -17,8 +18,10 @@ def create_folder():
     path_to_move = ('C://Users/densh/Desktop/' + str(new_folder)) 
     if os.path.isdir(os.path.join(path_random, new_folder)):
         path_to_move = os.path.join(path_random, new_folder)
+        print("The folder " + new_folder + "was found on the desktop, the repositories will be moved to it")
     else:
         os.mkdir(os.path.join(path_random, new_folder))
+        print("The folder " + new_folder + "was create on the desktop, the repositories will be moved to it")
     
 
 def search():
@@ -26,27 +29,40 @@ def search():
     DISK = ['C:/', 'D:/', 'E:/']
     for j in range(len(DISK)):
         for adress, dirs, files in os.walk(DISK[j]):
-            if adress == path_to_move:
-                continue
-            for dir in dirs:   
-                result = dir in LIST
-                if result is True:
-                    for i in range(len(LIST)):
-                        if dir == LIST[i]:
-                            yield os.path.join(adress, dir)
-                            break
+            for dir in dirs:
+                new_dir  = dir
+                for y in range(20):
+                    if f'({y})' in dir:
+                        new_dir = dir.replace(f'({y})', '')   
+                        break
+                if f'{new_folder}' not in adress:
+                    result = new_dir in LIST
+                    if result is True:
+                        for i in range(len(LIST)):
+                            if new_dir == LIST[i]:
+                                yield os.path.join(adress, dir)
+                                break
         j += 1
+              
                     
 def search_for_git(path):
+    
     for adress, dirs, files in os.walk(path):
         for dir in dirs:
-            if dir.endswith('.git') and '$Recycle.Bin' not in path:
-                return move(path)
-                
+            if '$Recycle.Bin' not in path:
+                if '.git' == dir:
+                    return move(path)
+            
+               
 def move(path):
-    print('Перемещение папки', path)
+    
     file_name = os.path.split(path)[-1]
-    count = 2 
+    print('Moving a', file_name)
+    for y in range(100):
+                    if f'({y})' in file_name:
+                        file_name = file_name.replace(f'({y})', '')   
+                        break
+    count = 1 
     while True:
         if os.path.isdir(os.path.join(path_to_move, file_name)):
             if f'({count - 1})' in file_name:
@@ -57,7 +73,10 @@ def move(path):
             break
     
     shutil.move(path, os.path.join(path_to_move, file_name))
-    
+    print ('The repository was on this path', path)
+    open(os.path.join(path_to_move, 'Путь где находился файл.txt'), 'a').write(str(path))
+      
+
 def parsing (): 
     
     page = 1 
@@ -87,3 +106,4 @@ for i in search():
     except Exception as e:
         with open(os.path.join(path_to_move, 'errors.txt'), 'a') as r:
             r.write(str(e) + '\n' + i + '\n')
+print('The search is over')
