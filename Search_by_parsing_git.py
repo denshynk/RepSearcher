@@ -3,7 +3,7 @@ from bs4 import BeautifulSoup as BS
 import os, shutil
 import string
 
-firsturl = "https://github.com/orgs/HowProgrammingWorks/repositories?page="
+firsturl = "https://github.com/orgs/HowProgrammingWorks/repositories" + "?page="
 LIST = []
 
 
