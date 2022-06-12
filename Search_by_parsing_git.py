@@ -74,7 +74,7 @@ def move(path):
     
     shutil.move(path, os.path.join(path_to_move, file_name))
     print ('The repository was on this path', path)
-    open(os.path.join(path_to_move, 'Путь где находился файл.txt'), 'a').write(str(path))
+    open(os.path.join(path_to_move, 'Путь где находился файл.txt'), 'a').write(str(path) + '\n')
       
 
 def parsing (): 

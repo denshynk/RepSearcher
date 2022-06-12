@@ -8,10 +8,10 @@ def create_folder():
     global path_to_move
     path_to_move = ('C:/Users/densh/Desktop/' + str(new_folder)) 
     if os.path.isdir(os.path.join(path_random, new_folder)):
-        path_to_move = os.path.join(path_random, new_folder)
+        os.path.join(path_random, new_folder)
         print("The folder " + new_folder + "was found on the desktop, the repositories will be moved to it")
     else:
-        path_to_move = os.mkdir(os.path.join(path_random, new_folder))
+        os.mkdir(os.path.join(path_random, new_folder))
         print("The folder " + new_folder + "was create on the desktop, the repositories will be moved to it")
 
 def search():
@@ -20,11 +20,9 @@ def search():
     for j in range(len(DISK)):
         for adress, dirs, files in os.walk(DISK[j]):
             for dir in dirs:
-                if f'{new_folder}' not in adress:
-                    if '$' not in adress: 
-                        if '.git' not in adress: 
-                            if '.git' == dir:  
-                                yield adress
+                if f'{new_folder}' and '$' and '.git' not in adress:
+                    if '.git' == dir:  
+                        yield adress
         j += 1
             
                     
