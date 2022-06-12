@@ -2,12 +2,12 @@
 
 ### There are two separate python files
 
-## First
+## First code
 ["Search by extension"](https://github.com/denshynk/RepSearcher/blob/master/Search_by_extension.py) is a script that iterates through all the folders on the computer while looking for git repositories.
 It determines that the folder is a git repository 
 through the `.git` folder nested in it. Then he moves it to the folder he created or already existing on the desktop `Repositories`. 
 
-## Second
+## Second code
 ["Search by parsing git"](https://github.com/denshynk/RepSearcher/blob/master/Search_by_extension.py)
  this code was written to sort repositories by github group. In the example, I used the link to the repositories ["HowProgrammingWorks"](https://github.com/orgs/HowProgrammingWorks/repositories). We got the names of all the repositories and added them to the list. Next, the code does a disk search looking for a folder from the list
  ```python
