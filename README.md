@@ -43,8 +43,5 @@ Also in our folder where we move the repositories, two .txt files are created.
 ### The first "The path where the Repositories was located.txt"  
 -  a file in which the path where the moved file was located is written.
 
-### The second is "errors.txt" 
+## The second is "errors.txt" 
 - code execution error. In particular, I had only one error displayed, this is the error of moving the "running code".
-
-### Future additions
-- In the future I want to combine these two codes and make a multifunctional program that can search for all repositories on the device and search for repositories of GitHub users. And also add visualization.
