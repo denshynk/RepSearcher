@@ -1,5 +1,4 @@
 import os, shutil
-import getpass
 import string
 
 def create_folder():
@@ -11,7 +10,7 @@ def create_folder():
     path_to_move = (os.path.expanduser('~') +'/Desktop/' + str(new_folder))
     if os.path.isdir(os.path.join(path_random, new_folder)):
         os.path.join(path_random, new_folder)
-        print("The folder " + new_folder + "was found on the desktop, the repositories will be moved to it")
+        print("The folder " + new_folder + " was found on the desktop, the repositories will be moved to it")
     else:
         os.mkdir(os.path.join(path_random, new_folder))
         print("The folder " + new_folder + "was create on the desktop, the repositories will be moved to it")
@@ -19,11 +18,12 @@ def create_folder():
 def search():
     
     for j in range(len(DISK)):
-        for adress, dirs, files in os.walk(DISK[j]):
+        for adress, dirs, fieles in os.walk(DISK[j]):
             for dir in dirs:
-                if f'{new_folder}' and '$' and '.git' and '$Recycle.Bin' not in adress:
-                    if '.git' == dir:  
-                        yield adress
+                if f'{new_folder}' not in adress:
+                    if '$' and '.git' and '$Recycle.Bin' not in adress:
+                        if '.git' == dir:  
+                            yield adress
         j += 1
             
                     
@@ -52,13 +52,15 @@ def get_disklist():
         disk = c+':/'
         if os.path.isdir(disk):
             DISK.append(disk)
-    
-create_folder() 
-get_disklist()
-for i in search():
-    try:
-        move(i)
-    except Exception as e:
-        with open(os.path.join(path_to_move, 'errors.txt'), 'a') as r:
-            r.write(str(e) + '\n' + i + '\n')
-print('The search is over')
+
+
+if __name__ == "__main__":    
+    create_folder() 
+    get_disklist()
+    for i in search():
+        try:
+            move(i)
+        except Exception as e:
+            with open(os.path.join(path_to_move, 'errors.txt'), 'a') as r:
+                r.write(str(e) + '\n' + i + '\n')
+    print('The search is over')

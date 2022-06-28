@@ -29,7 +29,7 @@ def create_folder():
 def search():
     
     for j in range(len(DISK)):
-        for adress, dirs, files in os.walk(DISK[j]):
+        for adress, dirs in os.walk(DISK[j]):
             for dir in dirs:
                 new_dir  = dir
                 for y in range(20):
@@ -48,7 +48,7 @@ def search():
                     
 def search_for_git(path):
     
-    for adress, dirs, files in os.walk(path):
+    for  dirs in os.walk(path):
         for dir in dirs:
             if '$Recycle.Bin' not in path:
                 if '.git' == dir:
