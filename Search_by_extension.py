@@ -15,12 +15,13 @@ def create_folder():
         os.mkdir(os.path.join(path_random, new_folder))
         print("The folder " + new_folder + "was create on the desktop, the repositories will be moved to it")
 
+
 def search():
     
     for j in range(len(DISK)):
         for adress, dirs, fieles in os.walk(DISK[j]):
             for dir in dirs:
-                if f'{new_folder}' not in adress:
+                if new_folder not in adress:
                     if '$' and '.git' and '$Recycle.Bin' not in adress:
                         if '.git' == dir:  
                             yield adress
@@ -44,6 +45,7 @@ def move(path):
     shutil.move(path, os.path.join(path_to_move, file_name))
     print(file_name, 'moved')
    # print ('Путь где находился файл', path)
+
 
 def get_disklist():
     global DISK
